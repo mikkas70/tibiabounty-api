@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { WorldService } from './world.service';
 import { World } from './world.schema';
 
@@ -12,7 +12,7 @@ export class WorldController {
   }
 
   @Get('/read/:id')
-  async read(name: string): Promise<World> {
-    return await this.worldService.getByName(name);
+  async read(@Param('id') id: string): Promise<World> {
+    return await this.worldService.getById(id);
   }
 }

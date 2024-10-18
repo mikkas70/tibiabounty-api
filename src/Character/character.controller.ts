@@ -1,4 +1,13 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
+import { CharacterService } from './character.service';
+import { Character } from './character.schema';
 
 @Controller('character')
-export class CharacterController {}
+export class CharacterController {
+  constructor(private readonly characterService: CharacterService) {}
+
+  @Get('/read/:id')
+  async read(@Param('id') id: string): Promise<Character> {
+    return await this.characterService.getById(id);
+  }
+}
