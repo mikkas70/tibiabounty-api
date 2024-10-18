@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { World, WorldDocument } from './world.schema';
 import { NOT_FOUND_EXCEPTION } from '../constants/Exceptions';
+import { CreateWorldDto } from './dto/createWorldDto';
 
 @Injectable()
 export class WorldService {
@@ -11,12 +12,22 @@ export class WorldService {
   ) {}
 
   /**
+   * Create a new world
+   */
+  async create(createWorldDto: CreateWorldDto): Promise<World> {
+    const createdWorld = new this.worldModel(createWorldDto);
+    return createdWorld.save();
+  }
+
+  /**
    * Get a world by name
    * @param name
    * @throws NotFoundException
    */
   async getByName(name: string): Promise<World> {
-    const world = await this.worldModel.findOne({ name }).exec();
+    const world = await this.worldModel
+      .findOne({ name: { $regex: new RegExp(`^${name}$`, 'i') } })
+      .exec();
 
     if (!world) {
       throw new NotFoundException(NOT_FOUND_EXCEPTION);

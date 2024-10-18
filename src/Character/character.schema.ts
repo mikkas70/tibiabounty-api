@@ -7,10 +7,22 @@ export class Character {
   name: string;
 
   @Prop({ type: Types.ObjectId, ref: 'World', required: true })
-  worldId: string;
+  world_id: string;
+
+  @Prop({ type: Types.ObjectId, ref: 'Guild', required: false })
+  guild_id: string;
+
+  @Prop({ required: false })
+  guild_rank: string;
 
   @Prop({ required: true })
-  isOnline: string;
+  is_online: boolean;
+
+  @Prop({ required: true })
+  level: number;
+
+  @Prop({ required: true })
+  vocation: string;
 }
 
 export type CharacterDocument = HydratedDocument<Character>;

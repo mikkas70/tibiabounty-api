@@ -7,7 +7,7 @@ export class World {
   name: string;
 
   @Prop({ required: true })
-  pvpType: number;
+  pvp_type: string;
 }
 
 export type WorldDocument = HydratedDocument<World>;

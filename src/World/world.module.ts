@@ -10,5 +10,6 @@ import { WorldService } from './world.service';
   ],
   controllers: [WorldController],
   providers: [WorldService],
+  exports: [WorldService],
 })
 export class WorldModule {}
