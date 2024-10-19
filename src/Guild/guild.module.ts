@@ -10,5 +10,6 @@ import { GuildService } from './guild.service';
   ],
   controllers: [GuildController],
   providers: [GuildService],
+  exports: [GuildService],
 })
 export class GuildModule {}

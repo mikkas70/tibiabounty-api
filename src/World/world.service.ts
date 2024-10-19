@@ -13,8 +13,7 @@ export class WorldService {
    * Create a new world
    */
   async create(createWorldDto: CreateWorldDto): Promise<World> {
-    const createdWorld = new this.world(createWorldDto);
-    return createdWorld.save();
+    return await new this.world(createWorldDto).save();
   }
 
   /**

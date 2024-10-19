@@ -5,6 +5,8 @@ import { PvpType } from './enums/pvpType';
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class World {
+  _id: string;
+
   @Factory((faker) => faker.word.words(1))
   @Prop({ required: true, unique: true })
   name: string;
