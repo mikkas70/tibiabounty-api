@@ -10,7 +10,7 @@ export class BountyController {
   async list(
     @Param('take') take: number = 10,
     @Param('skip') page: number = 0,
-  ): Promise<{ total: number; bounties: Bounty[] }> {
+  ): Promise<{ total: number; data: Bounty[] }> {
     return await this.bountyService.list(take, page);
   }
 

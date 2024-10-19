@@ -6,7 +6,7 @@ import { CharacterModule } from './Character/character.module';
 import { TibiaModule } from './Tibia/tibia.module';
 import { GuildModule } from './Guild/guild.module';
 import { BountyModule } from './Bounty/bounty.module';
-import {ContractModule} from "./Contract/contract.module";
+import { BountyContractModule } from './BountyContract/bountyContract.module';
 
 @Module({
   imports: [
@@ -16,7 +16,7 @@ import {ContractModule} from "./Contract/contract.module";
     CharacterModule,
     GuildModule,
     BountyModule,
-    ContractModule,
+    BountyContractModule,
   ],
   controllers: [],
   providers: [AppService],

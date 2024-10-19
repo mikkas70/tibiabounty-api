@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
-export class Contract {
+export class BountyContract {
   @Prop({ type: Types.ObjectId, ref: 'Character', required: true })
   target_character_id: string;
 
@@ -22,6 +22,7 @@ export class Contract {
   expires_at: Date;
 }
 
-export type ContractDocument = HydratedDocument<Contract>;
+export type BountyContractDocument = HydratedDocument<BountyContract>;
 
-export const ContractSchema = SchemaFactory.createForClass(Contract);
+export const BountyContractSchema =
+  SchemaFactory.createForClass(BountyContract);
