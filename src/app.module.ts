@@ -7,10 +7,19 @@ import { TibiaModule } from './Tibia/tibia.module';
 import { GuildModule } from './Guild/guild.module';
 import { BountyModule } from './Bounty/bounty.module';
 import { BountyContractModule } from './BountyContract/bountyContract.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { BullModule } from '@nestjs/bullmq';
 
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost/tibiabounty'),
+    ScheduleModule.forRoot(),
+    BullModule.forRoot({
+      connection: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
     TibiaModule,
     WorldModule,
     CharacterModule,

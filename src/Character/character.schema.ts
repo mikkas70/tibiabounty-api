@@ -6,6 +6,8 @@ import { Vocation } from './enums/vocation';
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class Character {
+  _id: string;
+
   @Prop({ required: true })
   name: string;
 
