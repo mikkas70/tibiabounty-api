@@ -18,10 +18,9 @@ export class GuildSeeder implements Seeder {
 
     await Promise.all(
       guilds.map(async (guild) => {
-        const randomWorld = worlds[Math.floor(Math.random() * worlds.length)];
         await this.guild.create({
           ...guild,
-          world_id: randomWorld._id,
+          world_id: worlds[Math.floor(Math.random() * worlds.length)],
         });
       }),
     );
