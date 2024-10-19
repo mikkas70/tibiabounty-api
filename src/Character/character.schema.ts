@@ -4,16 +4,16 @@ import { v4 as uuidv4 } from 'uuid';
 import { Factory } from 'nestjs-seeder';
 import { Vocation } from './enums/vocation';
 
-@Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
+@Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class Character {
   @Prop({ required: true })
   name: string;
 
   @Prop({ type: Types.ObjectId, ref: 'World', required: true })
-  world_id: string;
+  world: string;
 
   @Prop({ type: Types.ObjectId, ref: 'Guild', required: false })
-  guild_id: string;
+  guild: string;
 
   @Factory((faker) => faker.word.words(2))
   @Prop({ required: false })

@@ -6,6 +6,11 @@ import { GuildSeeder } from './Guild/guild.seeder';
 import { Guild, GuildSchema } from './Guild/guild.schema';
 import { CharacterSeeder } from './Character/character.seeder';
 import { Character, CharacterSchema } from './Character/character.schema';
+import {
+  BountyContract,
+  BountyContractSchema,
+} from './BountyContract/bountyContract.schema';
+import { BountyContractSeeder } from './BountyContract/bountyContract.seeder';
 
 seeder({
   imports: [
@@ -15,5 +20,8 @@ seeder({
     MongooseModule.forFeature([
       { name: Character.name, schema: CharacterSchema },
     ]),
+    MongooseModule.forFeature([
+      { name: BountyContract.name, schema: BountyContractSchema },
+    ]),
   ],
-}).run([WorldSeeder, GuildSeeder, CharacterSeeder]);
+}).run([WorldSeeder, GuildSeeder, CharacterSeeder, BountyContractSeeder]);

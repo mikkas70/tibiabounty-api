@@ -3,7 +3,7 @@ import { HydratedDocument } from 'mongoose';
 import { Factory } from 'nestjs-seeder';
 import { PvpType } from './enums/pvpType';
 
-@Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
+@Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class World {
   @Factory((faker) => faker.word.words(1))
   @Prop({ required: true, unique: true })

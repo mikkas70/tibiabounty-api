@@ -40,8 +40,11 @@ export class CharacterSeeder implements Seeder {
         await this.character.create({
           ...character,
           name,
-          world_id: worlds[Math.floor(Math.random() * worlds.length)],
-          guild_id: guilds[Math.floor(Math.random() * guilds.length)],
+          world: worlds[Math.floor(Math.random() * worlds.length)],
+          guild:
+            Math.random() < 0.5
+              ? guilds[Math.floor(Math.random() * guilds.length)]
+              : null,
         });
       }),
     );

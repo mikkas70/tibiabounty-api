@@ -20,7 +20,7 @@ export class GuildSeeder implements Seeder {
       guilds.map(async (guild) => {
         await this.guild.create({
           ...guild,
-          world_id: worlds[Math.floor(Math.random() * worlds.length)],
+          world: worlds[Math.floor(Math.random() * worlds.length)],
         });
       }),
     );

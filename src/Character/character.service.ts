@@ -17,7 +17,10 @@ export class CharacterService {
    * @throws NotFoundException
    */
   async getById(id: string): Promise<Character> {
-    const character = await this.character.findById(id).exec();
+    const character = await this.character
+      .findById(id)
+      .populate('guild')
+      .exec();
 
     if (!character) {
       throw new NotFoundException(NOT_FOUND_EXCEPTION);

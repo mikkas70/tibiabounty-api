@@ -2,17 +2,14 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
 import { BountyStatus } from './enums/bountyStatus';
 
-@Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
+@Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class Bounty {
   @Prop({ type: Types.ObjectId, ref: 'Character', required: true })
-  target_character_id: string;
+  target_character: string;
 
   // TODO - HIDDEN IF IS_ANONYMOUS
   @Prop({ type: Types.ObjectId, ref: 'Character', required: true })
-  requester_character_id: string;
-
-  @Prop({ type: Types.ObjectId, ref: 'BountyCollection', required: false })
-  bounty_collection_id: string;
+  requester_character: string;
 
   @Prop({ required: true, default: false })
   is_anonymous: boolean;
