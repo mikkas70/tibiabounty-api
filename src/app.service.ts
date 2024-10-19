@@ -45,10 +45,7 @@ export class AppService implements OnApplicationBootstrap {
             await this.guildService.getByName(guild.name, world);
           } catch (error) {
             if (error instanceof NotFoundException) {
-              await this.guildService.create({
-                ...guild,
-                world: world,
-              });
+              await this.guildService.create({ ...guild, world: world });
             } else {
               this.logger.error(error.message);
               throw error;
