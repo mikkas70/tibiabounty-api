@@ -5,14 +5,18 @@ import { WorldModule } from './World/world.module';
 import { CharacterModule } from './Character/character.module';
 import { TibiaModule } from './Tibia/tibia.module';
 import { GuildModule } from './Guild/guild.module';
+import { BountyModule } from './Bounty/bounty.module';
+import {ContractModule} from "./Contract/contract.module";
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/nest'),
+    MongooseModule.forRoot('mongodb://localhost/tibiabounty'),
+    TibiaModule,
     WorldModule,
     CharacterModule,
     GuildModule,
-    TibiaModule,
+    BountyModule,
+    ContractModule,
   ],
   controllers: [],
   providers: [AppService],

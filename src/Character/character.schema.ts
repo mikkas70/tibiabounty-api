@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class Character {
@@ -23,6 +24,9 @@ export class Character {
 
   @Prop({ required: true })
   vocation: string;
+
+  @Prop({ required: true, default: () => `tibiabounty-${uuidv4()}` })
+  login_validation_string: string;
 }
 
 export type CharacterDocument = HydratedDocument<Character>;
