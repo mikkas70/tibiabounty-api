@@ -21,7 +21,6 @@ export class CharacterSeeder implements Seeder {
     const names = [
       'Sercera Abul',
       'Outcast Shooter',
-      'Lavus Siphir',
       'Nayde Blashyda',
       'Charlie Sierra',
       'Teteu Novinho',
