@@ -5,6 +5,7 @@ import { BountyService } from './bounty.service';
 import { BountyController } from './bounty.controller';
 import { TibiaModule } from '../Tibia/tibia.module';
 import { CharacterModule } from '../Character/character.module';
+import { BountySchedule } from './bounty.schedule';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { CharacterModule } from '../Character/character.module';
     MongooseModule.forFeature([{ name: Bounty.name, schema: BountySchema }]),
   ],
   controllers: [BountyController],
-  providers: [BountyService],
+  providers: [BountyService, BountySchedule],
   exports: [BountyService],
 })
 export class BountyModule {}

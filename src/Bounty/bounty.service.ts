@@ -8,6 +8,7 @@ import {
 import { Bounty, BountyDocument } from './bounty.schema';
 import { TibiaService } from '../Tibia/tibia.service';
 import { CharacterService } from '../Character/character.service';
+import { BountyStatus } from './enums/bountyStatus';
 
 @Injectable()
 export class BountyService {
@@ -16,6 +17,23 @@ export class BountyService {
     private readonly tibiaService: TibiaService,
     private readonly characterService: CharacterService,
   ) {}
+
+  /**
+   * Update the status of a bounty.
+   * @param id
+   * @param status
+   */
+  async updateStatus(id: string, status: BountyStatus): Promise<Bounty> {
+    const bounty = await this.bounty
+      .findByIdAndUpdate(id, { $set: { status } }, { new: true })
+      .exec();
+
+    if (!bounty) {
+      throw new NotFoundException('Bounty not found');
+    }
+
+    return bounty;
+  }
 
   /**
    * Get a guild by id
@@ -33,11 +51,23 @@ export class BountyService {
   }
 
   /**
+   * Get expired bounties that are currently active.
+   */
+  async getActiveExpired(): Promise<Bounty[]> {
+    return this.bounty
+      .find({
+        expires_at: { $lt: new Date() },
+        status: { $eq: BountyStatus.ACTIVE },
+      })
+      .exec();
+  }
+
+  /**
    * List bounties by pagination.
    * @param page
    * @param limit
    */
-  async list(
+  async getAll(
     page: number,
     limit: number,
   ): Promise<{ total: number; data: Bounty[] }> {

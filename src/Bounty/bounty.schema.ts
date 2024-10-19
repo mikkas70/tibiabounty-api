@@ -4,6 +4,8 @@ import { BountyStatus } from './enums/bountyStatus';
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class Bounty {
+  _id: string;
+
   @Prop({ type: Types.ObjectId, ref: 'Character', required: true })
   target_character: string;
 

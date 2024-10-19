@@ -11,7 +11,7 @@ export class BountyController {
     @Param('take') take: number = 10,
     @Param('skip') page: number = 0,
   ): Promise<{ total: number; data: Bounty[] }> {
-    return await this.bountyService.list(take, page);
+    return await this.bountyService.getAll(take, page);
   }
 
   @Get('/read/:id')

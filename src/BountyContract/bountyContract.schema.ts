@@ -19,6 +19,10 @@ export class BountyContract {
 
   @Factory((faker) => faker.datatype.boolean())
   @Prop({ required: true, default: false })
+  is_returned: boolean;
+
+  @Factory((faker) => faker.datatype.boolean())
+  @Prop({ required: true, default: false })
   is_anonymous: boolean;
 
   @Factory((faker) => faker.number.int({ min: 500, max: 1500 }))
