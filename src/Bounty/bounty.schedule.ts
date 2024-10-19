@@ -9,7 +9,7 @@ export class BountySchedule {
 
   constructor(private readonly bountyService: BountyService) {}
 
-  @Cron('*/5 * * * * *')
+  @Cron('* */1 * * * *')
   async handleExpiredBounties() {
     this.logger.debug('Checking for expired bounties...');
 

@@ -3,15 +3,15 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { NOT_FOUND_EXCEPTION } from '../exceptions';
 import {
-  BountyCollectionParticipant,
-  BountyCollectionParticipantDocument,
-} from './bountyCollectionParticipant.schema';
+  BountyCollector,
+  BountyCollectorDocument,
+} from './bountyCollector.schema';
 
 @Injectable()
-export class BountyCollectionParticipantService {
+export class BountyCollectorService {
   constructor(
-    @InjectModel(BountyCollectionParticipant.name)
-    private bountyCollectionParticipant: Model<BountyCollectionParticipantDocument>,
+    @InjectModel(BountyCollector.name)
+    private bountyCollector: Model<BountyCollectorDocument>,
   ) {}
 
   /**
@@ -19,8 +19,8 @@ export class BountyCollectionParticipantService {
    * @param id
    * @throws NotFoundException
    */
-  async getById(id: string): Promise<BountyCollectionParticipant> {
-    const contract = await this.bountyCollectionParticipant.findById(id).exec();
+  async getById(id: string): Promise<BountyCollector> {
+    const contract = await this.bountyCollector.findById(id).exec();
 
     if (!contract) {
       throw new NotFoundException(NOT_FOUND_EXCEPTION);
@@ -37,18 +37,16 @@ export class BountyCollectionParticipantService {
   async list(
     page: number,
     limit: number,
-  ): Promise<{ total: number; data: BountyCollectionParticipant[] }> {
+  ): Promise<{ total: number; data: BountyCollector[] }> {
     const skip = (page - 1) * limit;
 
-    const contracts = await this.bountyCollectionParticipant
+    const contracts = await this.bountyCollector
       .find()
       .skip(skip)
       .limit(limit)
       .exec();
 
-    const total = await this.bountyCollectionParticipant
-      .countDocuments()
-      .exec();
+    const total = await this.bountyCollector.countDocuments().exec();
 
     return { total, data: contracts };
   }
