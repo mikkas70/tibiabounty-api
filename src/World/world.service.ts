@@ -53,6 +53,6 @@ export class WorldService {
    * Get all worlds
    */
   async getAll(): Promise<World[]> {
-    return this.world.find().exec();
+    return this.world.find().sort('name').exec();
   }
 }

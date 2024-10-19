@@ -6,9 +6,6 @@ export class BountyCollection {
   @Prop({ type: Types.ObjectId, ref: 'Bounty', required: true })
   bounty_id: string;
 
-  @Prop({ required: true })
-  is_eligible: boolean;
-
   @Prop({ required: false, default: false })
   is_paid: number;
 

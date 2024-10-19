@@ -2,7 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { BountyContractService } from './bountyContract.service';
 import { BountyContract } from './bountyContract.schema';
 
-@Controller('bounty')
+@Controller('bounty-contract')
 export class BountyContractController {
   constructor(private readonly bountyContractService: BountyContractService) {}
 

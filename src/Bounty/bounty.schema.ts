@@ -11,6 +11,9 @@ export class Bounty {
   @Prop({ type: Types.ObjectId, ref: 'Character', required: true })
   requester_character_id: string;
 
+  @Prop({ type: Types.ObjectId, ref: 'BountyCollection', required: false })
+  bounty_collection_id: string;
+
   @Prop({ required: true, default: false })
   is_anonymous: boolean;
 

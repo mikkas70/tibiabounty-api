@@ -27,6 +27,9 @@ export class Character {
 
   @Prop({ required: true, default: () => `tibiabounty-${uuidv4()}` })
   login_validation_string: string;
+
+  @Prop({ required: true, default: () => '133_3' })
+  look_id: string;
 }
 
 export type CharacterDocument = HydratedDocument<Character>;

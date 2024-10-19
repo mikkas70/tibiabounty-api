@@ -68,7 +68,6 @@ export class BountyService {
 
     try {
       const character = this.characterService.getByName(name);
-      // TODO - Check if there are previous recent bounties.
     } catch {}
   }
 }
