@@ -6,6 +6,7 @@ import {
 } from './bountyCollector.schema';
 import { BountyCollectorService } from './bountyCollector.service';
 import { BountyCollectorController } from './bountyCollector.controller';
+import { BullModule } from '@nestjs/bullmq';
 
 @Module({
   imports: [
@@ -15,6 +16,9 @@ import { BountyCollectorController } from './bountyCollector.controller';
         schema: BountyCollectorSchema,
       },
     ]),
+    BullModule.registerQueue({
+      name: 'bounty_payment',
+    }),
   ],
   controllers: [BountyCollectorController],
   providers: [BountyCollectorService],

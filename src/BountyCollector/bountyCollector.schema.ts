@@ -3,6 +3,8 @@ import { HydratedDocument, Types } from 'mongoose';
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class BountyCollector {
+  _id: string;
+
   @Prop({ type: Types.ObjectId, ref: 'Character', required: true })
   character: string;
 

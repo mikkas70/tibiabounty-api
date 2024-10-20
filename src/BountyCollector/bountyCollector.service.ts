@@ -30,6 +30,13 @@ export class BountyCollectorService {
   }
 
   /**
+   * Get all unpaid bounty collectors.
+   */
+  async getUnpaid(): Promise<BountyCollector[]> {
+    return this.bountyCollector.find({ paid: false }).exec();
+  }
+
+  /**
    * List bounties by pagination.
    * @param page
    * @param limit
