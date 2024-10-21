@@ -53,7 +53,7 @@ export class BountyService {
   /**
    * Get expired bounties that are currently active.
    */
-  async getActiveExpired(): Promise<Bounty[]> {
+  async getExpirableBounties(): Promise<Bounty[]> {
     return this.bounty
       .find({
         expires_at: { $lt: new Date() },

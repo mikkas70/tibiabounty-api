@@ -13,7 +13,7 @@ export class BountySchedule {
   async handleExpiredBounties() {
     this.logger.debug('Checking for expired bounties...');
 
-    const expired = await this.bountyService.getActiveExpired();
+    const expired = await this.bountyService.getExpireableBounties();
 
     expired.map(async (bounty) => {
       this.logger.debug('Found expired bounty - ' + bounty._id);
