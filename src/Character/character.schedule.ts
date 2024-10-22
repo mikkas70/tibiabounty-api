@@ -1,7 +1,6 @@
 import { CharacterService } from './character.service';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
-import { Cron } from '@nestjs/schedule';
 import { Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
@@ -13,7 +12,6 @@ export class CharacterSchedule {
     @InjectQueue('character') private queue: Queue,
   ) {}
 
-  @Cron('*/10 * * * * *')
   async handleStaleCharacters() {
     this.logger.debug('Updating stale characters...');
 

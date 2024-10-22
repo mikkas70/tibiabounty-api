@@ -16,7 +16,7 @@ export class BountySchedule {
     const expired = await this.bountyService.getExpirable();
 
     expired.map(async (bounty) => {
-      await this.bountyService.updateStatus(bounty._id, BountyStatus.EXPIRED);
+      await this.bountyService.setStatus(bounty._id, BountyStatus.EXPIRED);
     });
   }
 }

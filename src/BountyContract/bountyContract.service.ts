@@ -1,7 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { NOT_FOUND_EXCEPTION } from '../exceptions';
+import {
+  BOUNTY_NOT_UPDATED_SUCCESSFULLY,
+  NOT_FOUND_EXCEPTION,
+} from '../exceptions';
 import {
   BountyContract,
   BountyContractDocument,
@@ -30,6 +33,20 @@ export class BountyContractService {
   }
 
   /**
+   * Get contracts that are ready for execution (paid, not yet active)
+   * @return BountyContract[]
+   */
+  async getReadyForExecution(): Promise<BountyContract[]> {
+    return await this.bountyContract
+      .find({
+        bounty: { $ne: null },
+        is_paid: true,
+        is_returned: false,
+      })
+      .exec();
+  }
+
+  /**
    * List bounties by pagination.
    * @param page
    * @param limit
@@ -48,5 +65,15 @@ export class BountyContractService {
     const total = await this.bountyContract.countDocuments().exec();
 
     return { total, data: contracts };
+  }
+
+  async assignBounty(id: string, bountyId: string): Promise<void> {
+    const result = await this.bountyContract
+      .findByIdAndUpdate(id, { bounty: bountyId })
+      .exec();
+
+    if (!result) {
+      throw new HttpException(BOUNTY_NOT_UPDATED_SUCCESSFULLY, 500);
+    }
   }
 }

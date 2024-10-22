@@ -1,32 +1,59 @@
-import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import {
-  CHARACTER_ELIGIBILITY_LEVEL_TOO_LOW_EXCEPTION,
-  NOT_FOUND_EXCEPTION,
-} from '../exceptions';
+import { NOT_FOUND_EXCEPTION } from '../exceptions';
 import { Bounty, BountyDocument } from './bounty.schema';
-import { TibiaService } from '../Tibia/tibia.service';
-import { CharacterService } from '../Character/character.service';
 import { BountyStatus } from './enums/bountyStatus';
-import { Character } from '../Character/character.schema';
+import { CreateBountyDto } from './dto/createBountyDto';
 
 @Injectable()
 export class BountyService {
   constructor(
     @InjectModel(Bounty.name) private bounty: Model<BountyDocument>,
-    private readonly tibiaService: TibiaService,
-    private readonly characterService: CharacterService,
   ) {}
+
+  /**
+   * Create a new bounty.
+   * @param data
+   */
+  async create(data: CreateBountyDto): Promise<Bounty> {
+    const bounty = new this.bounty();
+
+    bounty.target_character = data.target_character;
+    bounty.requester_character = data.requester_character;
+    bounty.is_anonymous = data.is_anonymous;
+    bounty.value = data.value;
+    bounty.status = BountyStatus.ACTIVE;
+    bounty.expires_at = data.expires_at;
+
+    return bounty.save();
+  }
 
   /**
    * Update the status of a bounty.
    * @param id
    * @param status
    */
-  async updateStatus(id: string, status: BountyStatus): Promise<Bounty> {
+  async setStatus(id: string, status: BountyStatus): Promise<Bounty> {
     const bounty = await this.bounty
       .findByIdAndUpdate(id, { $set: { status } }, { new: true })
+      .exec();
+
+    if (!bounty) {
+      throw new NotFoundException('Bounty not found');
+    }
+
+    return bounty;
+  }
+
+  /**
+   * Update the value of a bounty.
+   * @param id
+   * @param value
+   */
+  async setValue(id: string, value: number): Promise<Bounty> {
+    const bounty = await this.bounty
+      .findByIdAndUpdate(id, { $set: { value } }, { new: true })
       .exec();
 
     if (!bounty) {
@@ -88,26 +115,15 @@ export class BountyService {
    * @throws
    */
   async checkEligibility(name: string): Promise<void> {
-    const { character } = await this.tibiaService.character(name);
-
-    if (character.level < 150) {
-      throw new HttpException(
-        CHARACTER_ELIGIBILITY_LEVEL_TOO_LOW_EXCEPTION,
-        400,
-      );
-    }
-
-    try {
-      const character = this.characterService.getByName(name);
-    } catch {}
+    // TODO
   }
 
-  async isActiveForCharacter(character: Character): Promise<boolean> {
-    return (
-      (await this.bounty.exists({
+  async getActiveForCharacter(character_id: string): Promise<Bounty> {
+    return await this.bounty
+      .findOne({
         status: BountyStatus.ACTIVE,
-        target_character: character._id,
-      })) !== null
-    );
+        target_character: character_id,
+      })
+      .exec();
   }
 }

@@ -21,6 +21,8 @@ export class BountyCollectorSchedule {
       await this.bountyCollectorService.getUnpaid();
 
     unpaidBountyCollectors.map(async (bountyCollector) => {
+      // ADD JOB TO QUEUE, TO AWSSERVICE
+
       await this.queue.add(
         '',
         { id: bountyCollector._id.toString() },

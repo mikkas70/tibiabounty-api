@@ -4,16 +4,22 @@ import { Model } from 'mongoose';
 import { World, WorldDocument } from './world.schema';
 import { NOT_FOUND_EXCEPTION } from '../exceptions';
 import { CreateWorldDto } from './dto/createWorldDto';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class WorldService {
-  constructor(@InjectModel(World.name) private world: Model<WorldDocument>) {}
+  constructor(
+    @InjectModel(World.name) private world: Model<WorldDocument>,
+    private readonly eventEmitter: EventEmitter2,
+  ) {}
 
   /**
    * Create a new world
    */
-  async create(createWorldDto: CreateWorldDto): Promise<World> {
-    return await new this.world(createWorldDto).save();
+  async create(createWorldDto: CreateWorldDto): Promise<void> {
+    await new this.world(createWorldDto).save().then((world) => {
+      this.eventEmitter.emit('world.created', world);
+    });
   }
 
   /**

@@ -4,6 +4,8 @@ import { Factory } from 'nestjs-seeder';
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class BountyContract {
+  _id: string;
+
   @Prop({ type: Types.ObjectId, ref: 'Character', required: true })
   target_character: string;
 
@@ -29,7 +31,7 @@ export class BountyContract {
   @Prop({ required: true })
   value: number;
 
-  @Factory((faker) => faker.date.soon({ days: 30 }))
+  @Factory((faker) => faker.date.soon({ days: 2 }))
   @Prop({ required: true })
   expires_at: Date;
 }

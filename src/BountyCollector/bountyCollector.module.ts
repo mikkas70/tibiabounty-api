@@ -7,6 +7,7 @@ import {
 import { BountyCollectorService } from './bountyCollector.service';
 import { BountyCollectorController } from './bountyCollector.controller';
 import { BullModule } from '@nestjs/bullmq';
+import { BountyCollectorSchedule } from './bountyCollector.schedule';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { BullModule } from '@nestjs/bullmq';
     }),
   ],
   controllers: [BountyCollectorController],
-  providers: [BountyCollectorService],
+  providers: [BountyCollectorService, BountyCollectorSchedule],
   exports: [BountyCollectorService],
 })
 export class BountyCollectorModule {}

@@ -4,7 +4,7 @@ import { WorldController } from './world.controller';
 import { World, WorldSchema } from './world.schema';
 import { WorldService } from './world.service';
 import { TibiaModule } from '../Tibia/tibia.module';
-import { WorldSchedule } from './world.schedule';
+import { WorldEvent } from './world.event';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { WorldSchedule } from './world.schedule';
     TibiaModule,
   ],
   controllers: [WorldController],
-  providers: [WorldService, WorldSchedule],
+  providers: [WorldService, WorldEvent],
   exports: [WorldService],
 })
 export class WorldModule {}

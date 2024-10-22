@@ -4,17 +4,14 @@ import { Guild, GuildSchema } from './guild.schema';
 import { GuildController } from './guild.controller';
 import { GuildService } from './guild.service';
 import { GuildSchedule } from './guild.schedule';
-import { WorldModule } from '../World/world.module';
-import { TibiaModule } from '../Tibia/tibia.module';
+import { GuildEvent } from './guild.event';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Guild.name, schema: GuildSchema }]),
-    WorldModule,
-    TibiaModule,
   ],
   controllers: [GuildController],
-  providers: [GuildService, GuildSchedule],
+  providers: [GuildService, GuildSchedule, GuildEvent],
   exports: [GuildService],
 })
 export class GuildModule {}

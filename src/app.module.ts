@@ -9,6 +9,7 @@ import { BountyModule } from './Bounty/bounty.module';
 import { BountyContractModule } from './BountyContract/bountyContract.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BullModule } from '@nestjs/bullmq';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { BullModule } from '@nestjs/bullmq';
         port: 6379,
       },
     }),
+    EventEmitterModule.forRoot(),
     TibiaModule,
     WorldModule,
     CharacterModule,
