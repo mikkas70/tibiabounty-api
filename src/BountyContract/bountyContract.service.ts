@@ -39,7 +39,7 @@ export class BountyContractService {
   async getReadyForExecution(): Promise<BountyContract[]> {
     return await this.bountyContract
       .find({
-        bounty: { $ne: null },
+        bounty: { $eq: null },
         is_paid: true,
         is_returned: false,
       })

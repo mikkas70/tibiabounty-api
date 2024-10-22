@@ -21,7 +21,6 @@ export class BountyService {
 
     bounty.target_character = data.target_character;
     bounty.requester_character = data.requester_character;
-    bounty.is_anonymous = data.is_anonymous;
     bounty.value = data.value;
     bounty.status = BountyStatus.ACTIVE;
     bounty.expires_at = data.expires_at;

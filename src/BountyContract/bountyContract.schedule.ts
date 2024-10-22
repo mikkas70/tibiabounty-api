@@ -12,8 +12,10 @@ export class BountyContractSchedule {
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
-  @Cron('* */2 * * * *')
+  @Cron('*/20 * * * * *')
   async handlePaidContracts() {
+    this.logger.debug('Checking for paid contracts...');
+
     const contracts = await this.bountyContractService.getReadyForExecution();
 
     contracts.map(async (contract) =>

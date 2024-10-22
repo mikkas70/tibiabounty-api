@@ -14,7 +14,7 @@ export class BountyEvent {
 
   @OnEvent('bountyContract.paid')
   async handleBountyContractPaid(contract: BountyContract) {
-    const bounty = await this.bountyService.getActiveForCharacter(
+    let bounty = await this.bountyService.getActiveForCharacter(
       contract.target_character,
     );
 
@@ -24,10 +24,9 @@ export class BountyEvent {
         bounty.value + contract.value, // TODO - Should we also update the expiration date? (eg: Incentivize players to add more money to the bounty to extend the expiration date)
       );
     } else {
-      await this.bountyService.create({
+      bounty = await this.bountyService.create({
         target_character: contract.target_character,
         requester_character: contract.requester_character,
-        is_anonymous: contract.is_anonymous,
         value: contract.value,
         expires_at: contract.expires_at, // TODO - EXPIRES AT CANNOT BE CONTRACT DATE, NEEDS TO BE NOW + X DAYS
       });

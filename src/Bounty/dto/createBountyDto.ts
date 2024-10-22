@@ -1,5 +1,4 @@
 import {
-  IsBoolean,
   IsDate,
   IsNotEmpty,
   IsNumber,
@@ -15,10 +14,6 @@ export class CreateBountyDto {
   @IsString()
   @IsNotEmpty()
   requester_character: string;
-
-  @IsBoolean()
-  @IsNotEmpty()
-  is_anonymous: boolean;
 
   @IsNumber()
   @IsPositive()
