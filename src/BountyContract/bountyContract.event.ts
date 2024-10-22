@@ -13,8 +13,17 @@ export class BountyContractEvent {
     private readonly bountyContractService: BountyContractService,
   ) {}
 
-  @OnEvent('bountyContract.assigned')
-  async handleBountyContractAssigned(contract: BountyContract, bounty: Bounty) {
+  @OnEvent('bounty.assigned')
+  async handleBountyContractAssigned(bounty: Bounty, contract: BountyContract) {
     await this.bountyContractService.assignBounty(contract._id, bounty._id);
+  }
+
+  @OnEvent('bounty.expired')
+  async handleBountyExpired(bounty: Bounty) {
+    const contracts = await this.bountyContractService.getAllByBounty(
+      bounty._id,
+    );
+
+    // TODO - Add to queue to process player refund.
   }
 }

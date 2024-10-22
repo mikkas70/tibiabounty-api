@@ -32,6 +32,6 @@ export class BountyEvent {
       });
     }
 
-    this.eventEmitter.emit('bountyContract.assigned', contract, bounty);
+    this.eventEmitter.emit('bounty.assigned', bounty, contract);
   }
 }

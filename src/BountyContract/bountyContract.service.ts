@@ -17,6 +17,10 @@ export class BountyContractService {
     private bountyContract: Model<BountyContractDocument>,
   ) {}
 
+  async getAllByBounty(bountyId: string): Promise<BountyContract[]> {
+    return await this.bountyContract.find({ bounty: bountyId }).exec();
+  }
+
   /**
    * Get a guild by id
    * @param id
@@ -30,20 +34,6 @@ export class BountyContractService {
     }
 
     return contract;
-  }
-
-  /**
-   * Get contracts that are ready for execution (paid, not yet active)
-   * @return BountyContract[]
-   */
-  async getReadyForExecution(): Promise<BountyContract[]> {
-    return await this.bountyContract
-      .find({
-        bounty: { $eq: null },
-        is_paid: true,
-        is_returned: false,
-      })
-      .exec();
   }
 
   /**
