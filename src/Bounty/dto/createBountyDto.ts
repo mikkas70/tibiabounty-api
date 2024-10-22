@@ -1,13 +1,11 @@
 import {
   IsBoolean,
   IsDate,
-  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsPositive,
   IsString,
 } from 'class-validator';
-import { BountyStatus } from '../enums/bountyStatus';
 
 export class CreateBountyDto {
   @IsString()
@@ -26,9 +24,6 @@ export class CreateBountyDto {
   @IsPositive()
   @IsNotEmpty()
   value: number;
-
-  @IsEnum(BountyStatus)
-  status: number;
 
   @IsDate()
   @IsNotEmpty()

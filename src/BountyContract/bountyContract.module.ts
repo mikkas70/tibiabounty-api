@@ -4,17 +4,20 @@ import { BountyContract, BountyContractSchema } from './bountyContract.schema';
 import { BountyContractService } from './bountyContract.service';
 import { BountyContractController } from './bountyContract.controller';
 import { BountyContractSchedule } from './bountyContract.schedule';
-import { BountyModule } from '../Bounty/bounty.module';
+import { BountyContractEvent } from './bountyContract.event';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: BountyContract.name, schema: BountyContractSchema },
     ]),
-    BountyModule,
   ],
   controllers: [BountyContractController],
-  providers: [BountyContractService, BountyContractSchedule],
+  providers: [
+    BountyContractService,
+    BountyContractSchedule,
+    BountyContractEvent,
+  ],
   exports: [BountyContractService],
 })
 export class BountyContractModule {}
