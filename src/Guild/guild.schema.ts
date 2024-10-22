@@ -4,6 +4,8 @@ import { Factory } from 'nestjs-seeder';
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class Guild {
+  _id: string;
+
   @Factory((faker) => faker.word.words(1))
   @Prop({ required: true })
   name: string;

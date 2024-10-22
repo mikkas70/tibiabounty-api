@@ -7,6 +7,9 @@ import { CharacterSchedule } from './character.schedule';
 import { BullModule } from '@nestjs/bullmq';
 import { CharacterConsumer } from './character.consumer';
 import { TibiaModule } from '../Tibia/tibia.module';
+import { GuildModule } from '../Guild/guild.module';
+import { WorldModule } from '../World/world.module';
+import { BountyModule } from '../Bounty/bounty.module';
 
 @Module({
   imports: [
@@ -17,6 +20,9 @@ import { TibiaModule } from '../Tibia/tibia.module';
       name: 'character',
     }),
     TibiaModule,
+    GuildModule,
+    WorldModule,
+    BountyModule,
   ],
   controllers: [CharacterController],
   providers: [CharacterService, CharacterSchedule, CharacterConsumer],

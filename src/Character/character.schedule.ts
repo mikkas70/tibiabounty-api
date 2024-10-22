@@ -13,7 +13,7 @@ export class CharacterSchedule {
     @InjectQueue('character') private queue: Queue,
   ) {}
 
-  @Cron('*/60 * * * * *')
+  @Cron('*/10 * * * * *')
   async handleStaleCharacters() {
     this.logger.debug('Updating stale characters...');
 

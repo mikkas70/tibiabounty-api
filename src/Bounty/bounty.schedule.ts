@@ -9,14 +9,13 @@ export class BountySchedule {
 
   constructor(private readonly bountyService: BountyService) {}
 
-  @Cron('* */1 * * * *')
+  @Cron('*/30 * * * * *')
   async handleExpiredBounties() {
     this.logger.debug('Checking for expired bounties...');
 
-    const expired = await this.bountyService.getExpireableBounties();
+    const expired = await this.bountyService.getExpirable();
 
     expired.map(async (bounty) => {
-      this.logger.debug('Found expired bounty - ' + bounty._id);
       await this.bountyService.updateStatus(bounty._id, BountyStatus.EXPIRED);
     });
   }

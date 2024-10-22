@@ -9,6 +9,7 @@ import { Bounty, BountyDocument } from './bounty.schema';
 import { TibiaService } from '../Tibia/tibia.service';
 import { CharacterService } from '../Character/character.service';
 import { BountyStatus } from './enums/bountyStatus';
+import { Character } from '../Character/character.schema';
 
 @Injectable()
 export class BountyService {
@@ -53,7 +54,7 @@ export class BountyService {
   /**
    * Get expired bounties that are currently active.
    */
-  async getExpirableBounties(): Promise<Bounty[]> {
+  async getExpirable(): Promise<Bounty[]> {
     return this.bounty
       .find({
         expires_at: { $lt: new Date() },
@@ -99,5 +100,14 @@ export class BountyService {
     try {
       const character = this.characterService.getByName(name);
     } catch {}
+  }
+
+  async isActiveForCharacter(character: Character): Promise<boolean> {
+    return (
+      (await this.bounty.exists({
+        status: BountyStatus.ACTIVE,
+        target_character: character._id,
+      })) !== null
+    );
   }
 }

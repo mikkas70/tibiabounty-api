@@ -35,4 +35,12 @@ export interface ICharacter {
     }[];
     reason: string;
   }[];
+  other_characters: {
+    name: string;
+    world: string;
+    status: string;
+    deleted: boolean;
+    main: boolean;
+    traded: boolean;
+  }[];
 }
